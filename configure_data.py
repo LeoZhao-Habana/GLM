@@ -142,7 +142,8 @@ def prepare_tokenizer(args):
         token_counts = torch.LongTensor([after, eod_token]).to("hpu")
     else:
         # token_counts = torch.cuda.LongTensor([0, 0])
-        token_counts = torch.LongTensor([0, 0], device="hpu")
+        token_counts = torch.tensor([0, 0], device="hpu")
+        token_counts = token_counts.long()
     # Broadcast num tokens.
     torch.distributed.broadcast(token_counts,
                                 mpu.get_model_parallel_src_rank(),

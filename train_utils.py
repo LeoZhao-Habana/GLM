@@ -30,7 +30,7 @@ def load_pretrained(model, checkpoint_path, args, task_tokens=None):
     if isinstance(model, FP16_Module):
         model = model.module
     if hasattr(model, "model"):
-        model = model.model
+        model = model.bfloat16()
 
     # Model.
     def extend_embedding_weights(state_weights, model_weights):

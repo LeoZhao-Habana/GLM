@@ -257,7 +257,7 @@ def generate_samples(model, tokenizer, args, device):
     if not os.path.exists(output_path):
         os.makedirs(output_path)
     output_path = os.path.join(output_path, f"sample-{datetime.now().strftime('%m-%d-%H-%M')}.txt")
-    with torch.no_grad(), open(output_path, "w") as output, torch.autocast("hpu", dtype=torch.float16, enabled=True):
+    with torch.no_grad(), open(output_path, "w") as output, torch.autocast("hpu", dtype=torch.bfloat16, enabled=True):
         while True:
             torch.distributed.barrier(group=mpu.get_model_parallel_group())
 
